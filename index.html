@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TrustShield – Student Opportunity & Verification Safety</title>
+  <meta name="description"
+    content="Assess online internships, scholarships, jobs, freelance work, competitions, and recruiter messages for risk signals and evidence-based guidance." />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+
+    tailwind = {
+
+      config: {
+
+        theme: {
+
+          extend: {
+
+            colors: {
+
+              brand: {
+
+                50: "#eff6ff",
+
+                100: "#dbeafe",
+
+                500: "#3b82f6",
+
+                600: "#2563eb",
+
+                700: "#1d4ed8",
+
+                800: "#1e40af",
+
+                900: "#1e3a8a"
+
+              }
+
+            }
+
+          }
+
+        }
+
+      }
+
+    };
+
+  </script>
+
+  <!-- Load Tailwind after its configuration -->
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Load your custom stylesheet -->
+
+  <link rel="stylesheet" href="/styles.css">
+
+  <link rel="stylesheet" href="./css/styles.css" />
+</head>
+
+<body class="min-h-screen bg-slate-50 text-slate-900 flex flex-col antialiased">
+
+  <!-- Header / Navigation -->
+  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+
+        <!-- Logo -->
+        <a href="#" data-nav-target="check" class="flex items-center gap-2.5 group">
+          <div
+            class="w-9 h-9 rounded-xl bg-blue-600 flex items-center justify-center text-white shadow-sm group-hover:bg-blue-700 transition">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+            </svg>
+          </div>
+          <div>
+            <span
+              class="text-lg font-bold tracking-tight text-slate-900 group-hover:text-blue-600 transition">TrustShield</span>
+            <span
+              class="hidden sm:inline-block text-[11px] text-slate-500 font-medium ml-2 px-2 py-0.5 rounded-full bg-slate-100">Student
+              Safety</span>
+          </div>
+        </a>
+
+        <!-- Desktop Navigation -->
+        <nav class="hidden md:flex items-center gap-1 sm:gap-2">
+          <button data-nav-target="check"
+            class="px-3.5 py-2 text-sm font-semibold text-blue-600 border-b-2 border-blue-600 transition">
+            Check Opportunity
+          </button>
+          <button data-nav-target="samples" class="px-3.5 py-2 text-sm text-slate-600 hover:text-slate-900 transition">
+            Sample Cases
+          </button>
+          <button data-nav-target="guide" class="px-3.5 py-2 text-sm text-slate-600 hover:text-slate-900 transition">
+            Verification Guide
+          </button>
+          <button data-nav-target="history"
+            class="px-3.5 py-2 text-sm text-slate-600 hover:text-slate-900 transition flex items-center gap-1.5">
+            <span>Saved Checks</span>
+            <span id="history-count-badge"
+              class="hidden px-2 py-0.2 text-[11px] font-bold rounded-full bg-blue-100 text-blue-700">0</span>
+          </button>
+        </nav>
+
+        <!-- CTA & Mobile Menu Toggle -->
+        <div class="flex items-center gap-2">
+          <button data-nav-target="check"
+            class="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 text-sm font-semibold rounded-xl bg-blue-600 text-white hover:bg-blue-700 shadow-sm transition">
+            <span>Verify Offer</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+            </svg>
+          </button>
+
+          <button id="mobile-menu-toggle" class="md:hidden p-2 rounded-lg text-slate-600 hover:bg-slate-100"
+            aria-label="Toggle menu">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Mobile Navigation Drawer -->
+    <div id="mobile-menu" class="hidden md:hidden border-t border-slate-200 bg-white px-4 pt-2 pb-4 space-y-1">
+      <button data-nav-target="check"
+        class="w-full text-left px-3 py-2 text-sm font-semibold text-blue-600 rounded-lg hover:bg-blue-50">
+        Check Opportunity
+      </button>
+      <button data-nav-target="samples"
+        class="w-full text-left px-3 py-2 text-sm text-slate-700 rounded-lg hover:bg-slate-50">
+        Sample Cases
+      </button>
+      <button data-nav-target="guide"
+        class="w-full text-left px-3 py-2 text-sm text-slate-700 rounded-lg hover:bg-slate-50">
+        Verification Guide
+      </button>
+      <button data-nav-target="history"
+        class="w-full text-left px-3 py-2 text-sm text-slate-700 rounded-lg hover:bg-slate-50 flex items-center justify-between">
+        <span>Saved Checks</span>
+        <span class="px-2 py-0.5 text-xs bg-slate-100 rounded-full text-slate-600">Local Only</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Notification Toasts Container -->
+  <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 max-w-sm w-full pointer-events-auto">
+  </div>
+
+  <!-- Main View Container -->
+  <main class="flex-1">
+
+    <!-- VIEW: CHECK OPPORTUNITY (PRIMARY WORKFLOW) -->
+    <section id="view-check" class="view-section py-8 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
+
+      <!-- Hero Intro Banner -->
+      <div class="mb-8 text-center max-w-3xl mx-auto">
+        <div
+          class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-blue-50 text-blue-700 border border-blue-200 mb-3">
+          <svg class="w-3.5 h-3.5 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd"
+              d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 -1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+              clip-rule="evenodd" />
+          </svg>
+          Evidence-Based Risk Guidance for Students
+        </div>
+        <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+          Assess Online Internships, Scholarships & Job Offers
+        </h1>
+        <p class="mt-3 text-slate-600 text-sm sm:text-base leading-relaxed">
+          Verify recruiter messages, freelance contracts, competitions, and postings. Understand what is risky, the
+          exact evidence behind every signal, and what to verify before responding or sharing personal data.
+        </p>
+
+        <!-- Advisory Notice -->
+        <div
+          class="mt-4 p-3 rounded-xl bg-amber-50/80 border border-amber-200/80 text-amber-900 text-xs flex items-center justify-center gap-2 max-w-2xl mx-auto">
+          <svg class="w-4 h-4 text-amber-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <span><strong>Notice:</strong> Results provide risk guidance and educational verification steps, not
+            definitive accusations or guarantees of safety.</span>
+        </div>
+      </div>
+
+      <!-- FORM SECTION -->
+      <div id="form-container" class="bg-white rounded-3xl border border-slate-200 shadow-sm p-6 sm:p-8 mb-10">
+
+        <form id="opportunity-form" class="space-y-6">
+
+          <!-- Opportunity Type Selection -->
+          <div>
+            <label for="opportunity-type" class="block text-sm font-bold text-slate-800 mb-2">
+              1. Choose Opportunity Type <span class="text-red-500">*</span>
+            </label>
+            <select id="opportunity-type"
+              class="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm font-medium text-slate-800 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition shadow-sm"
+              required>
+              <option value="internship">Online Internship (Corporate, Research, Startup)</option>
+              <option value="scholarship">Scholarship / Educational Grant</option>
+              <option value="job">Full-Time / Part-Time Job Offer</option>
+              <option value="freelance">Freelance / Gig Project</option>
+              <option value="competition">Competition / Hackathon / Prize Challenge</option>
+              <option value="recruiter_message">Recruiter Outreach / Cold Email / DM</option>
+              <option value="website">Opportunity Website or Portal Link</option>
+            </select>
+          </div>
+
+          <!-- Offer Text / Interaction Input -->
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <label for="offer-text" class="block text-sm font-bold text-slate-800">
+                2. Paste Offer Text, Message, or Describe the Interaction <span class="text-red-500">*</span>
+              </label>
+              <span class="text-xs text-slate-500">Minimum 15 characters</span>
+            </div>
+
+            <textarea id="offer-text" rows="7"
+              placeholder="Paste the full job email, DM, scholarship notification, salary details, recruiter instructions, or payment requirements here..."
+              class="w-full rounded-2xl border border-slate-300 p-4 text-sm font-normal text-slate-800 placeholder-slate-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition shadow-sm font-mono text-xs sm:text-sm leading-relaxed"
+              required></textarea>
+
+            <!-- PII Sanitizer Banner (auto-detects) -->
+            <div id="pii-warning-banner"
+              class="hidden mt-3 p-3.5 bg-amber-50 border border-amber-300 rounded-xl text-xs text-amber-900 flex items-center justify-between gap-3 animate-fade-in">
+              <div class="flex items-center gap-2">
+                <svg class="w-5 h-5 text-amber-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                </svg>
+                <span><strong>Privacy Alert:</strong> Detected sensitive strings (SSN, credit card, or password
+                  pattern). Please redact sensitive personal info before analyzing.</span>
+              </div>
+              <button type="button" id="sanitize-input-btn"
+                class="shrink-0 px-3 py-1 bg-amber-600 hover:bg-amber-700 text-white font-semibold rounded-lg shadow-sm">
+                Redact Automatically
+              </button>
+            </div>
+
+            <!-- Privacy Reminder -->
+            <p class="mt-2 text-xs text-slate-500 flex items-center gap-1.5">
+              <svg class="w-4 h-4 text-slate-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+              </svg>
+              <span><strong>Privacy First:</strong> Never submit passwords, bank PINs, or ID numbers. Analysis executes
+                locally in your browser.</span>
+            </p>
+          </div>
+
+          <!-- Website URL (Optional) -->
+          <div>
+            <label for="offer-url" class="block text-sm font-bold text-slate-800 mb-1.5">
+              3. Opportunity Website / Application URL <span
+                class="text-xs font-normal text-slate-500">(Optional)</span>
+            </label>
+            <input type="url" id="offer-url" placeholder="https://company-careers-example.com/apply"
+              class="w-full rounded-xl border border-slate-300 px-4 py-3 text-sm text-slate-800 placeholder-slate-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition shadow-sm" />
+            <span class="text-[11px] text-slate-500 block mt-1">We inspect syntax, shortened URLs, and lookalike
+              domains. We never trigger downloads or send credentials.</span>
+          </div>
+
+          <!-- Optional Context for Better Alternative Recommendations -->
+          <div class="pt-4 border-t border-slate-100">
+            <h3 class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-3">Optional Details for Safer
+              Alternative Matching</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div>
+                <label for="opportunity-field" class="block text-xs font-semibold text-slate-700 mb-1">Field /
+                  Major</label>
+                <select id="opportunity-field"
+                  class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-xs font-medium text-slate-700 focus:border-blue-500">
+                  <option value="general">General / Any Field</option>
+                  <option value="tech">Technology / Computer Science</option>
+                  <option value="business">Business / Marketing / Finance</option>
+                  <option value="design">Design / Creative Arts</option>
+                  <option value="research">Academic Research / STEM</option>
+                </select>
+              </div>
+
+              <div>
+                <label for="opportunity-location" class="block text-xs font-semibold text-slate-700 mb-1">Location
+                  Preference</label>
+                <select id="opportunity-location"
+                  class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-xs font-medium text-slate-700 focus:border-blue-500">
+                  <option value="remote">Remote / Online</option>
+                  <option value="us">United States</option>
+                  <option value="global">International / Global</option>
+                </select>
+              </div>
+
+              <div>
+                <label for="opportunity-eligibility" class="block text-xs font-semibold text-slate-700 mb-1">Current
+                  Education Level</label>
+                <select id="opportunity-eligibility"
+                  class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-xs font-medium text-slate-700 focus:border-blue-500">
+                  <option value="undergrad">Undergraduate Student</option>
+                  <option value="grad">Graduate / PhD Student</option>
+                  <option value="highschool">High School Senior</option>
+                  <option value="any">Any / Recent Graduate</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- Form Controls -->
+          <div class="pt-4 flex flex-col sm:flex-row items-center justify-between gap-3">
+            <div class="flex items-center gap-2">
+              <input type="checkbox" id="save-locally-toggle"
+                class="h-4 w-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500" />
+              <label for="save-locally-toggle" class="text-xs text-slate-600 cursor-pointer">
+                Save analysis to private browser history
+              </label>
+            </div>
+
+            <div class="flex items-center gap-3 w-full sm:w-auto">
+              <button type="button" id="form-reset-btn"
+                class="flex-1 sm:flex-initial px-5 py-2.5 text-sm font-semibold text-slate-600 hover:text-slate-900 bg-slate-100 hover:bg-slate-200 rounded-xl transition">
+                Reset
+              </button>
+              <button type="submit" id="form-submit-btn"
+                class="flex-1 sm:flex-initial px-7 py-2.5 text-sm font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-xl shadow-md hover:shadow-lg transition flex items-center justify-center gap-2">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                </svg>
+                <span>Check for Risks</span>
+              </button>
+            </div>
+          </div>
+
+        </form>
+      </div>
+
+      <!-- RESULTS SECTION (Initially hidden, revealed on run) -->
+      <div id="results-container" class="hidden space-y-8 animate-fade-in">
+
+        <!-- Overall Risk Banner -->
+        <div id="res-risk-banner"
+          class="p-6 rounded-2xl bg-gradient-to-r from-slate-100 to-slate-50 border-2 border-slate-200 shadow-sm">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div class="flex items-start gap-4">
+              <div id="res-risk-icon" class="p-2.5 bg-white rounded-xl shadow-sm shrink-0">
+                <!-- Injected via app.js -->
+              </div>
+              <div>
+                <div class="flex items-center gap-2 mb-1">
+                  <span id="res-risk-badge" class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">
+                    Analyzing...
+                  </span>
+                  <span id="res-risk-score" class="text-xs font-semibold text-slate-500"></span>
+                </div>
+                <h2 id="res-risk-title" class="text-xl sm:text-2xl font-black text-slate-900"></h2>
+                <p id="res-risk-summary" class="text-sm text-slate-700 mt-1 leading-relaxed max-w-2xl"></p>
+              </div>
+            </div>
+
+            <!-- Action Buttons Toolbar -->
+            <div class="flex sm:flex-col items-stretch gap-2 shrink-0">
+              <button id="copy-summary-btn"
+                class="px-4 py-2 text-xs font-bold rounded-xl bg-white border border-slate-300 text-slate-800 hover:bg-slate-50 shadow-sm flex items-center justify-center gap-1.5 transition">
+                <svg class="w-3.5 h-3.5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
+                </svg>
+                <span>Copy Summary</span>
+              </button>
+              <button id="start-new-check-btn"
+                class="px-4 py-2 text-xs font-bold rounded-xl bg-blue-600 text-white hover:bg-blue-700 shadow-sm flex items-center justify-center gap-1.5 transition">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                </svg>
+                <span>Check Another</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Confidence & Limitations Box -->
+          <div
+            class="mt-5 pt-4 border-t border-slate-200/70 flex flex-col sm:flex-row sm:items-center justify-between text-xs text-slate-600 gap-2">
+            <div>
+              <span class="font-bold text-slate-700">Confidence Assessment:</span>
+              <span id="res-confidence-badge" class="font-semibold text-blue-700 ml-1"></span>
+              <span class="text-slate-500 ml-2" id="res-confidence-explanation"></span>
+            </div>
+            <div class="text-[11px] text-slate-400">
+              Heuristic Rule Engine v1.0 • Client-side
+            </div>
+          </div>
+        </div>
+
+        <!-- User Supplied vs App Checks Summary -->
+        <div id="res-supplied-data">
+          <!-- Injected via app.js -->
+        </div>
+
+        <!-- CLAIM-BY-CLAIM EVIDENCE BREAKDOWN -->
+        <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
+          <div class="flex items-center justify-between mb-4">
+            <div>
+              <h3 class="text-lg font-bold text-slate-900">Claim-by-Claim Evidence Assessment</h3>
+              <p class="text-xs text-slate-500">Every signal examined with its corresponding evidence, source, and
+                reasoning.</p>
+            </div>
+            <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-slate-100 text-slate-700">Evidence
+              Verified</span>
+          </div>
+
+          <div id="res-claims-list" class="space-y-4">
+            <!-- Injected Claim Cards -->
+          </div>
+        </div>
+
+        <!-- WHAT COULD NOT BE VERIFIED -->
+        <div class="bg-amber-50/60 rounded-2xl border border-amber-200 p-6 shadow-sm">
+          <div class="flex items-center gap-2 mb-2">
+            <svg class="w-5 h-5 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <h3 class="text-base font-bold text-amber-950">What Could Not Be Verified Automatically</h3>
+          </div>
+          <p class="text-xs text-amber-800 mb-4">
+            Automated analysis has inherent boundaries. We never guess, fabricate records, or treat absence of evidence
+            as proof. Verify these points manually:
+          </p>
+
+          <ul id="res-missing-list" class="space-y-3">
+            <!-- Injected missing items -->
+          </ul>
+        </div>
+
+        <!-- ACTIONABLE VERIFICATION CHECKLIST -->
+        <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
+          <div class="flex items-center justify-between mb-3">
+            <div>
+              <h3 class="text-base font-bold text-slate-900">Practical Next Steps Before Acting</h3>
+              <p class="text-xs text-slate-500">Complete these verification steps before clicking links, paying fees, or
+                signing forms.</p>
+            </div>
+            <span id="res-checklist-progress"
+              class="text-xs font-bold text-blue-600 bg-blue-50 px-3 py-1 rounded-full border border-blue-100">
+              0 verified
+            </span>
+          </div>
+
+          <div id="res-checklist" class="space-y-2.5">
+            <!-- Injected Interactive Checklist items -->
+          </div>
+        </div>
+
+        <!-- SAFE ALTERNATIVES SECTION (When Risky or Unverified) -->
+        <div id="res-safe-alternatives-section"
+          class="bg-gradient-to-b from-blue-50/50 to-white rounded-2xl border border-blue-200 p-6 shadow-sm">
+          <div class="mb-4">
+            <div
+              class="inline-flex items-center gap-1 text-xs font-bold uppercase tracking-wider text-blue-700 bg-blue-100 px-2.5 py-0.5 rounded mb-1">
+              Safer Alternatives Engine
+            </div>
+            <h3 class="text-lg font-bold text-slate-900">Vetted Alternative Channels to Explore</h3>
+            <p class="text-xs text-slate-600 mt-0.5">
+              Because this opportunity carries heightened risk or unverified claims, search through these trusted
+              directories instead. We never fabricate listings or endorse third-party outcomes.
+            </p>
+          </div>
+
+          <div id="res-alternatives-list" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <!-- Injected Safe Alternatives Cards -->
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- VIEW: SAMPLE CASES -->
+    <section id="view-samples" class="view-section hidden py-8 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
+      <div class="mb-8 text-center max-w-2xl mx-auto">
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">Interactive Demonstration Cases
+        </h2>
+        <p class="mt-2 text-slate-600 text-sm">
+          Explore realistic student scenarios to see how evidence-based risk signals and verification checklists work in
+          practice.
+        </p>
+        <span class="inline-block mt-3 px-3 py-1 bg-slate-100 text-slate-600 text-xs font-semibold rounded-full">
+          Demonstration Mode: Marked for educational study
+        </span>
+      </div>
+
+      <div id="sample-cases-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Injected via sample-cases.js -->
+      </div>
+    </section>
+
+    <!-- VIEW: VERIFICATION GUIDE -->
+    <section id="view-guide" class="view-section hidden py-8 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
+      <div class="mb-8 text-center max-w-2xl mx-auto">
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">Student Opportunity Verification
+          Guide</h2>
+        <p class="mt-2 text-slate-600 text-sm">
+          A plain-language manual for independently investigating job offers, scholarships, freelance clients, and
+          competitions.
+        </p>
+      </div>
+
+      <div class="space-y-6">
+
+        <!-- Guide Card 1: Domain & WHOIS -->
+        <div class="p-6 bg-white rounded-2xl border border-slate-200 shadow-sm">
+          <div class="flex items-center gap-3 mb-2">
+            <span
+              class="w-8 h-8 rounded-lg bg-blue-100 text-blue-700 font-bold flex items-center justify-center text-sm">1</span>
+            <h3 class="text-base font-bold text-slate-900">How to Detect Lookalike & Spoofed Domains</h3>
+          </div>
+          <p class="text-sm text-slate-600 leading-relaxed mb-3">
+            Scammers register domains that closely mimic real companies to impersonate recruiters. For instance, if an
+            employer is Acme Corp (<code class="text-xs bg-slate-100 px-1.5 py-0.5 rounded">acmecorp.com</code>), a
+            scammer might register <code class="text-xs bg-slate-100 px-1.5 py-0.5 rounded">acmecorp-careers.net</code>
+            or <code class="text-xs bg-slate-100 px-1.5 py-0.5 rounded">acme-hiringportal.com</code>.
+          </p>
+          <div class="p-3 bg-slate-50 rounded-xl text-xs space-y-1 text-slate-700 border border-slate-200">
+            <div><strong>Rule of thumb:</strong> Look at the exact characters immediately preceding the top-level domain
+              (.com, .org).</div>
+            <div><strong>Verification step:</strong> Use a public WHOIS lookup tool (such as whois.domaintools.com). If
+              the domain was registered within the past 6 months, it is a massive red flag for a company claiming
+              decades in business.</div>
+          </div>
+        </div>
+
+        <!-- Guide Card 2: Advance Check / Equipment Scam -->
+        <div class="p-6 bg-white rounded-2xl border border-slate-200 shadow-sm">
+          <div class="flex items-center gap-3 mb-2">
+            <span
+              class="w-8 h-8 rounded-lg bg-red-100 text-red-700 font-bold flex items-center justify-center text-sm">2</span>
+            <h3 class="text-base font-bold text-slate-900">The Advance Equipment Check Scam Explained</h3>
+          </div>
+          <p class="text-sm text-slate-600 leading-relaxed mb-3">
+            This is the #1 scam targeting college students seeking remote jobs. The "employer" sends an electronic or
+            cashier's check for \$2,000–\$5,000 to purchase home office hardware (MacBook, printer) from their
+            "authorized vendor".
+          </p>
+          <div class="p-3 bg-red-50 rounded-xl text-xs space-y-1 text-red-900 border border-red-200">
+            <div><strong>The Trap:</strong> Under federal banking laws, banks make check funds available in your account
+              within a few days *before* the check actually clears. Weeks later, the fraudulent check bounces, and YOU
+              owe the bank every dollar sent to the "vendor".</div>
+            <div><strong>Golden rule:</strong> Never accept checks to buy equipment. Legitimate companies ship
+              pre-configured laptops directly to your door.</div>
+          </div>
+        </div>
+
+        <!-- Guide Card 3: Telegram & Informal Chat -->
+        <div class="p-6 bg-white rounded-2xl border border-slate-200 shadow-sm">
+          <div class="flex items-center gap-3 mb-2">
+            <span
+              class="w-8 h-8 rounded-lg bg-amber-100 text-amber-700 font-bold flex items-center justify-center text-sm">3</span>
+            <h3 class="text-base font-bold text-slate-900">Why Telegram & WhatsApp Interviews Are Scam Indicators</h3>
+          </div>
+          <p class="text-sm text-slate-600 leading-relaxed mb-3">
+            Enterprise recruiters never conduct formal hiring interviews via text messages on Telegram, Signal,
+            WhatsApp, or Google Hangouts. Scammers hide behind anonymous chat handles to avoid leaving corporate audit
+            trails.
+          </p>
+          <div class="p-3 bg-amber-50 rounded-xl text-xs space-y-1 text-amber-900 border border-amber-200">
+            <div><strong>Verification step:</strong> Always insist on a scheduled video interview using enterprise
+              platforms (Zoom, Google Meet, Microsoft Teams) sent from an official corporate email address.</div>
+          </div>
+        </div>
+
+        <!-- Guide Card 4: Scholarship Fees -->
+        <div class="p-6 bg-white rounded-2xl border border-slate-200 shadow-sm">
+          <div class="flex items-center gap-3 mb-2">
+            <span
+              class="w-8 h-8 rounded-lg bg-blue-100 text-blue-700 font-bold flex items-center justify-center text-sm">4</span>
+            <h3 class="text-base font-bold text-slate-900">Legitimate Scholarships Never Charge Application Fees</h3>
+          </div>
+          <p class="text-sm text-slate-600 leading-relaxed mb-3">
+            Any scholarship or grant notifying you that you have won a "guaranteed award", but requiring a "disbursement
+            fee", "tax processing deposit", or "membership charge" is 100% fraudulent.
+          </p>
+          <div class="p-3 bg-blue-50 rounded-xl text-xs space-y-1 text-blue-900 border border-blue-200">
+            <div><strong>Remember:</strong> Genuine foundations and universities give money to students; they never ask
+              students to pay to unlock an award.</div>
+          </div>
+        </div>
+
+        <!-- Guide Card 5: Campus Resources -->
+        <div class="p-6 bg-white rounded-2xl border border-slate-200 shadow-sm">
+          <div class="flex items-center gap-3 mb-2">
+            <span
+              class="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-700 font-bold flex items-center justify-center text-sm">5</span>
+            <h3 class="text-base font-bold text-slate-900">Your Campus Career Center: Your Free Shield</h3>
+          </div>
+          <p class="text-sm text-slate-600 leading-relaxed mb-3">
+            When in doubt, forward the email or message to your university career advisor, department chair, or
+            financial aid officer. Campus offices maintain lists of known predatory recruiters targeting university
+            student directories.
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- VIEW: LOCAL SAVED HISTORY -->
+    <section id="view-history" class="view-section hidden py-8 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+        <div>
+          <h2 class="text-2xl font-black text-slate-900">Local Assessment History</h2>
+          <p class="text-xs text-slate-500 mt-1">Saved locally on your device in your browser's private storage. Never
+            sent to any cloud server.</p>
+        </div>
+        <button id="clear-history-btn"
+          class="px-3.5 py-1.5 text-xs font-semibold rounded-lg bg-red-50 text-red-600 hover:bg-red-100 transition self-start sm:self-auto">
+          Clear All History
+        </button>
+      </div>
+
+      <!-- Empty state -->
+      <div id="saved-checks-empty" class="p-12 text-center bg-white rounded-2xl border border-dashed border-slate-300">
+        <svg class="w-12 h-12 text-slate-300 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+            d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+        </svg>
+        <h3 class="text-sm font-bold text-slate-700">No Saved Assessments Yet</h3>
+        <p class="text-xs text-slate-500 mt-1 max-w-sm mx-auto">When you analyze an opportunity with "Save analysis to
+          private browser history" checked, it will appear here for easy reference.</p>
+        <button data-nav-target="check"
+          class="mt-4 px-4 py-2 text-xs font-bold text-white bg-blue-600 rounded-xl hover:bg-blue-700 shadow-sm">
+          Run Your First Check
+        </button>
+      </div>
+
+      <!-- Saved Checks List -->
+      <div id="saved-checks-list" class="space-y-3">
+        <!-- Injected via app.js -->
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-white border-t border-slate-200 mt-16 py-8 px-4 text-center text-xs text-slate-500">
+    <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-2">
+        <div class="w-5 h-5 rounded-md bg-blue-600 flex items-center justify-center text-white text-[10px] font-bold">T
+        </div>
+        <span class="font-bold text-slate-800">TrustShield</span>
+        <span>• Student Opportunity & Risk Guidance Engine</span>
+      </div>
+
+      <div class="flex items-center gap-4">
+        <button data-nav-target="check" class="hover:text-slate-800">Check</button>
+        <button data-nav-target="samples" class="hover:text-slate-800">Samples</button>
+        <button data-nav-target="guide" class="hover:text-slate-800">Safety Guide</button>
+        <button data-nav-target="history" class="hover:text-slate-800">History</button>
+      </div>
+    </div>
+    <div class="max-w-3xl mx-auto mt-4 text-[11px] text-slate-400 leading-normal">
+      Disclaimer: TrustShield is an educational advisory tool that performs heuristic pattern evaluations. It does not
+      provide legal advice, official background verification, or safety guarantees. Always verify offers independently
+      through certified university or corporate channels.
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script type="module" src="js/app.js"></script>
+</body>
+
+</html>
